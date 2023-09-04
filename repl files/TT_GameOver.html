@@ -1,0 +1,255 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+</head>
+
+
+
+<body>
+    <center>
+<div class="level level--75">
+  <div class="level__wrap">
+    <div class="level__info">
+      <span class="level__value">Level</span>
+      <span class="level__text">75</span>
+    </div>
+    <div class="level__progress">
+      <div class="level__half level__half--left"></div>
+      <div class="level__half level__half--right"></div>
+    </div>
+  </div>
+</div>
+        
+        <br><br><br><br><br><br><br>
+        <div class="container"><h1 id="gover" class="blink_me">Game Over</h1></div>
+        <br><br><br><br><br><br>
+        <button class="button_retry" id="button_retry">Retry 
+            <svg xmlns="http://www.w3.org/2000/svg" version="2">
+            <circle r="0.5em" cx="50%" cy="50%"></circle></svg>
+        </button>
+
+    </center>
+</body>
+
+
+
+<!-- Retry Button CSS -->
+<style>
+    header {
+      padding: calc(20px + 10px) 10px 10px;
+      background-color: rgba(255, 255, 255, 0.2);
+      font-size: 16px;
+    }
+
+    section {
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 15px;
+      background-color: #D93080;
+      padding: 15px;
+      display: block;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      font-size: 16px;
+      width: 100%;
+      max-width: 120px;
+      margin: 0 auto;
+      cursor: pointer;
+      transition: 0.4s ease all;
+      position: relative;
+    }
+
+    button svg {
+      animation: loading 1s linear infinite both;
+      width: 1.4em;
+      height: 1.4em;
+      padding: .1em;
+      line-height: 1;
+      position: absolute;
+      left: 50%; top: 50%;
+      margin: -0.75em auto auto -0.75em;
+      opacity: 0;
+      color: white;
+    }
+
+    button svg circle {
+      transform-origin: 50%;
+      fill: none;
+      r: .5em;
+      stroke: currentColor;
+      stroke-width: .1em;
+      stroke-linecap: round;
+      animation: loading-circle 1.4s linear infinite both;
+      stroke-dasharray: 2.8em;
+      transform-origin: 50%;
+      cx: 50%;
+      cy: 50%;
+    }
+
+    button[disabled] {
+      pointer-events: none;
+      width: 48px;
+      border-radius: 50px;
+      color: transparent;
+    }
+
+    button[disabled] svg {
+      opacity: 1;
+    }
+
+    @keyframes loading {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes loading-circle {
+      0% {
+        stroke-dashoffset: 2.8em;
+      }
+      50% {
+        stroke-dashoffset: .7em;
+      }
+      100% {
+        stroke-dashoffset: 2.8em;
+        transform: rotate(360deg);
+      }
+    }
+</style>
+
+<!-- Retry Button JS -->
+<script>
+var button = document.getElementById('button_retry')
+button.addEventListener('click', click)
+
+function click (e) {
+  console.log('button clicked')
+  button.setAttribute('disabled', true)
+  setTimeout(unfocus, 1500)
+}
+
+function unfocus () {
+  button.removeAttribute('disabled')
+}
+
+</script>
+
+
+
+<!-- Game Over CSS -->
+<style>
+@font-face {
+  font-family: 'Pixeled';
+  src: url('Pixeled.ttf') format('truetype');
+}
+
+#gover {
+  font-family: 'VT323', monospace;
+  font-size: 600%;
+  justify-content: center;
+  align-items: center;
+  margin-top: -5%;
+  z-index: 10;
+  color: #E44141;
+}
+
+.blink_me {
+  animation: blinker 1.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+</style>
+
+<!-- Game Over JS -->
+<script>
+/*
+function myoutput() {
+    document.getElementById('gover').innerHTML = "";
+    setTimeout(function () {
+      document.getElementById('gover').innerHTML = "Game Over";
+    }, 500);
+  }
+this.setInterval(myoutput,1000);
+*/
+
+
+</script>
+
+
+
+<!-- Level Number CSS -->
+<style>
+.level {
+  display: inline;
+}
+
+.level__wrap {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.level__info {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.level__value {
+  font-family: "Verdana", "arial", sans-serif;
+  font-size: 20px;
+  line-height: 20px;
+  color: #ffffff;
+}
+
+.level__text {
+  font-family: "Verdana", "arial", sans-serif;
+  font-size: 20px;
+  line-height: 20px;
+  color: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.level__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.level__half {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.level--75 .level__wrap {
+  width: 90px;
+  height: 90px;
+}
+.level--75 .level__info {
+  width: 90px;
+  height: 90px;
+  background-color: black;
+}
+.level--75 .level__half {
+  width: 80px;
+  height: 80px;
+  border: 5px solid orange;
+  clip: rect(auto, 140px, 140px, 00px);
+}
+.level--75 .level__half--left {
+  transform: rotate(450deg);
+}
+</style>
