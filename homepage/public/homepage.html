@@ -1,0 +1,194 @@
+<!-- Homepage -->
+<html lang="en">
+  <head>
+    <title>Page title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="css/tailwind/tailwind.min.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-tailwind.png">
+    <script src="js/main.js"></script>
+  </head>
+
+  <body class="antialiased bg-body text-body font-body">
+
+
+    <div class="columns is-multiline is-clipped" style="position: absolute; bottom: 10%; width: 100%;">
+      <div class="column is-4-desktop is-clipped" style = "">
+        <a class="play-btn" href="#"></a>
+      </div>
+
+      <div class="column is-4-desktop is-clipped">
+        <button id="playpausebtn" style = ""></button>
+        <button id="mutebtn" style = ""></button>
+      </div>
+
+    </div>
+
+  </body>
+
+
+
+
+
+  <!-- Play Button -->
+<style>
+body{
+   background-image: linear-gradient(to top, #c71d6f 0%, #d09693 100%);
+   background-repeat: no-repeat;
+   background-size: contain;
+   background-attachment: fixed;
+   color: white;
+   overflow: hidden;
+}
+.play-btn {
+  width: 30vw;
+  height: 30vw;
+  background: radial-gradient( rgba(255, 0, 128, 0.8) 60%, rgba(255, 255, 255, 1) 62%);
+  border-radius: 50%;
+  position: relative;
+  display: block;
+  margin: 80px auto;
+  box-shadow: 0px 0px 25px 3px rgba(255, 0, 128, 0.8);
+}
+
+/* triangle */
+.play-btn::after {
+  content: "";
+  position: absolute;
+  left: 51%;
+  top: 50%;
+  -webkit-transform: translateX(-40%) translateY(-50%);
+  transform: translateX(-40%) translateY(-50%);
+  transform-origin: center center;
+  width: 0;
+  height: 0;
+  border-top: 5vw solid transparent;
+  border-bottom: 5vw solid transparent;
+  border-left: 7.7vw solid #fff;
+  z-index: 100;
+  -webkit-transition: all 400ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  transition: all 400ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+/* pulse wave */
+.play-btn:before {
+  content: "";
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation: pulsate1 2s;
+  animation: pulsate1 2s;
+  -webkit-animation-direction: forwards;
+  animation-direction: forwards;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: steps;
+  animation-timing-function: steps;
+  opacity: 1;
+  border-radius: 50%;
+  border: 5px solid rgba(255, 255, 255, .75);
+  top: -30%;
+  left: -30%;
+  background: rgba(198, 16, 0, 0);
+}
+
+@-webkit-keyframes pulsate1 {
+  0% {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+    opacity: 1;
+    box-shadow: inset 0px 0px 25px 3px rgba(255, 255, 255, 0.75), 0px 0px 25px 10px rgba(255, 255, 255, 0.75);
+    margin-left: 5.5%;
+    margin-top: 3.5%;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0;
+    box-shadow: none;
+    margin-left: 5.5%;
+    margin-top: 3.5%;
+  }
+}
+
+@keyframes pulsate1 {
+  0% {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+    opacity: 1;
+    box-shadow: inset 0px 0px 25px 3px rgba(255, 255, 255, 0.75), 0px 0px 25px 10px rgba(255, 255, 255, 0.75);
+    margin-left: 5.5%;
+    margin-top: 3.5%;
+  }
+  100% {
+    -webkit-transform: scale(1, 1);
+    transform: scale(1);
+    opacity: 0;
+    box-shadow: none;
+    margin-left: 5.5%;
+    margin-top: 3.5%;
+  }
+}
+</style>
+
+
+
+<!-- Mute Button CSS -->
+<style>
+button{ border:none; cursor:pointer; outline:none;}
+
+#mutebtn{
+  background:url(https://image.flaticon.com/icons/svg/204/204287.svg) no-repeat;
+  position: absolute;
+  width:24vw;
+  height:24vw;
+  left:70%;
+  margin-top: -15%;
+}
+</style>
+
+
+<!-- Mute Button JS -->
+<script>
+var audio, playbtn, mutebtn, seek_bar;
+function initAudioPlayer(){
+	audio = new Audio();
+	audio.src = "https://www.soundjay.com/free-music/midnight-ride-01a.mp3";
+	audio.loop = true;
+	audio.play();
+	// Set object references
+	playbtn = document.getElementById("playpausebtn");
+	mutebtn = document.getElementById("mutebtn");
+	// Add Event Handling
+	playbtn.addEventListener("click",playPause);
+	mutebtn.addEventListener("click", mute);
+	// Functions
+	function playPause(){
+		if(audio.paused){
+		    audio.play();
+		    playbtn.style.background = "url(https://image.flaticon.com/icons/svg/189/189889.svg) no-repeat";
+	    } else {
+		    audio.pause();
+		    playbtn.style.background = "url(https://image.flaticon.com/icons/svg/148/148744.svg) no-repeat";
+	    }
+	}
+	function mute(){
+		if(audio.muted){
+		    audio.muted = false;
+		    mutebtn.style.background = "url(https://image.flaticon.com/icons/svg/204/204287.svg) no-repeat";
+	    } else {
+		    audio.muted = true;
+		    mutebtn.style.background = "url(https://image.flaticon.com/icons/svg/148/148757.svg) no-repeat";
+	    }
+	}
+}
+window.addEventListener("load", initAudioPlayer);
+
+</script>
+
+
+</html>
